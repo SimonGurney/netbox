@@ -216,7 +216,7 @@ class Aggregate(ChangeLoggedModel, CustomFieldModel):
         """
         Determine the prefix utilization of the aggregate and return it as a percentage.
         """
-        queryset = Prefix.objects.filter(prefix__net_contained_or_equal=str(self.prefix))
+        queryset = Prefix.objects.filter(prefix__net_contained=str(self.prefix))
         child_prefixes = netaddr.IPSet([p.prefix for p in queryset])
         return int(float(child_prefixes.size) / self.prefix.size * 100)
 
