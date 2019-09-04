@@ -237,7 +237,7 @@ class PrefixFilter(TenancyFilterSet, CustomFieldFilterSet):
                 return queryset.filter(prefix__net_contains_or_equals=str(netaddr.IPNetwork(value).cidr))
             # Searching by IP address
             else:
-                return queryset.filter(prefix__net_contains=str(netaddr.IPAddress(value)))
+                return queryset.filter(prefix__net_contains_or_equals=str(netaddr.IPAddress(value)))
         except (AddrFormatError, ValueError):
             return queryset.none()
 
